@@ -9,7 +9,7 @@ use Faker\Factory;
 
 class PostFixtures extends Fixture
 {
-    const NB_POSTS = 10;
+    const NB_POSTS = 20;
 
     /**
      * @param ObjectManager $manager

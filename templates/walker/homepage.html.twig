@@ -4,7 +4,12 @@
 
 {% block body %}
     <div class="row my-3">
+
         <div class="col-8">
+            <h1 class="simplexHomepage col-12 d-flex align-items-end justify-content-center py-3">
+                <img src="{{ asset('/img/shared/logoContoure.png') }}" class="logoHeader" alt="logo Simplex-Immo"/>
+                <span class="pb-1"><span class="hidden">S</span>implex-Immo</span>
+            </h1>
             {% include 'walker/homepage/promotion.html.twig' %}
         </div>
         <div class="col-4">

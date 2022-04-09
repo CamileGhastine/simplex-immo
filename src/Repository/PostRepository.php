@@ -22,6 +22,22 @@ class PostRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param null $maxResult
+     * @param null $firstResult
+     *
+     * @return int|mixed|string
+     */
+    public function findAllPosts($maxResult = null, $firstResult = null)
+    {
+        return $this->createQueryBuilder('post')
+            ->orderBy('post.updatedAt', 'DESC')
+            ->setFirstResult($firstResult)
+            ->setMaxResults($maxResult)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+    /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
