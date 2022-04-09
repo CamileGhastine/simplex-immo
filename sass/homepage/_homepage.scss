@@ -1,0 +1,26 @@
+.simplexHomepage {
+  color: orange !important;
+  text-shadow: 0 0 5px black;
+}
+
+.simplexHomepage>img {
+  height: 80px
+}
+
+img {
+  max-height: 150px;
+}
+
+.promotion {
+  border: 3px solid black;
+}
+
+.newsLink {
+  color: white;
+  text-decoration: none;
+}
+
+.newsLink:hover {
+  color: white;
+  text-shadow: 0 0 3px black;
+}
