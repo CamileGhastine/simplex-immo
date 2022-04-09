@@ -1,0 +1,33 @@
+header {
+  background-image: url("../img/shared/header.jpg");
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 25vh;
+}
+
+.simplexHeader {
+  font-size: 50px;
+  color: orange;
+  text-shadow: 0 0 5px black;
+}
+
+.sentenceHeader {
+  font-size: 20px;
+  color: orange;
+  text-shadow: 0 0 2px black;
+}
+
+.btn-success,
+.btn-warning {
+  color: black;
+  font-weight: bold;
+  text-shadow: 0 0 5px white;
+  border: 1px solid black;
+}
+
+.hidden {
+  display: none;
+}
