@@ -27,9 +27,13 @@ class PostRepository extends ServiceEntityRepository
      *
      * @return int|mixed|string
      */
-    public function findAllPosts($maxResult = null, $firstResult = null)
+    public function findAllPostsWithPoster($maxResult = null, $firstResult = null)
     {
         return $this->createQueryBuilder('post')
+            ->addSelect('media')
+            ->leftJoin('post.medias', 'media')
+            ->where('media.poster = 1')
+            ->orWhere('media.poster IS NULL')
             ->orderBy('post.updatedAt', 'DESC')
             ->setFirstResult($firstResult)
             ->setMaxResults($maxResult)
@@ -37,6 +41,7 @@ class PostRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+
     /**
      * @throws ORMException
      * @throws OptimisticLockException

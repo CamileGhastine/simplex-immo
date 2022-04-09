@@ -13,7 +13,7 @@ class WalkerController extends AbstractController
     public function index(PostRepository $postRepository): Response
     {
         return $this->render('walker/homepage.html.twig', [
-            'posts' => $postRepository->findAllPosts(9, 0)
+            'posts' => $postRepository->findAllPostsWithPoster(9, 0)
         ]);
     }
 }

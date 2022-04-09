@@ -5,7 +5,9 @@
             <div class="card bg-secondary border-warning m-1">
                 <div class="card-body row">
                     <div class="col-2 text-center d-flex align-items-center">
-                        <img src="{{ asset('/img/news/post.jpg') }}" alt="{{ "alt de l'image" }}"
+                        {% set poster = (post.medias | first) ? (post.medias | first).src : '/img/news/post.jpg' %}
+
+                        <img src="{{ asset(poster) }}" alt="{{ "alt de l'image" }}"
                              class="img-thumbnail"/>
                     </div>
                     <div class="col-10 card-title d-flex align-items-center ps-2">{{ post.title }}</div>

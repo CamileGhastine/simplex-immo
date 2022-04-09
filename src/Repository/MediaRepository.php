@@ -46,7 +46,7 @@ class MediaRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return MediaFixtures[] Returns an array of MediaFixtures objects
+    //  * @return Media[] Returns an array of Media objects
     //  */
     /*
     public function findByExampleField($value)
@@ -63,7 +63,7 @@ class MediaRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?MediaFixtures
+    public function findOneBySomeField($value): ?Media
     {
         return $this->createQueryBuilder('m')
             ->andWhere('m.exampleField = :val')

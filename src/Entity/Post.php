@@ -28,11 +28,12 @@ class Post
     private $updatedAt;
 
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Media::class)]
-    private $media;
+    private $medias;
 
     public function __construct()
     {
         $this->media = new ArrayCollection();
+        $this->medias = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -91,15 +92,15 @@ class Post
     /**
      * @return Collection<int, Media>
      */
-    public function getMedia(): Collection
+    public function getMedias(): Collection
     {
-        return $this->media;
+        return $this->medias;
     }
 
     public function addMedia(Media $media): self
     {
-        if (!$this->media->contains($media)) {
-            $this->media[] = $media;
+        if (!$this->medias->contains($media)) {
+            $this->medias[] = $media;
             $media->setPost($this);
         }
 
@@ -108,7 +109,7 @@ class Post
 
     public function removeMedia(Media $media): self
     {
-        if ($this->media->removeElement($media)) {
+        if ($this->medias->removeElement($media)) {
             // set the owning side to null (unless already changed)
             if ($media->getPost() === $this) {
                 $media->setPost(null);
