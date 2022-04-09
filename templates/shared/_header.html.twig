@@ -1,11 +1,16 @@
-<header>
-    <header class="row text-center pb-5">
-        <p class="simplexHeader col-12 d-flex align-items-end justify-content-center py-3">
-            <img src="{{ asset('/img/shared/logoContoure.png')}}"   class="logoHeader" alt="logo Simplex-Immo"/>
-            <span><span class="hidden">S</span>implex-Immo</span>
+<header class="row text-center pb-5">
+    <p class="simplexHeader col-12 d-flex align-items-end justify-content-center py-3">
+        <img src="{{ asset('/img/shared/logoContoure.png') }}" class="logoHeader" alt="logo Simplex-Immo"/>
+        <span><span class="hidden">S</span>implex-Immo</span>
 
-        </p>
-        <p class="sentenceHeader col-12">Pourquoi payer ce que vous pouvez ne pas faire à la place d'un autre ?</p>
-        <div class="col-12"><a role="button" class="btn btn-warning">Voir une démo</a></div>
-    </header>
+    </p>
+    <p class="sentenceHeader col-12">Pourquoi payer ce que vous pouvez ne pas faire à la place d'un autre ?</p>
+    <div class="col-12">
+        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalDemo">
+            Voir une démo
+        </button>
+    </div>
+
+    {% include 'shared/modal_header.html.twig' %}
 </header>
+
