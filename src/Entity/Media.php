@@ -28,66 +28,55 @@ class Media
     #[ORM\ManyToOne(targetEntity: Post::class, inversedBy: 'medias')]
     private $post;
 
-    public function getId(): ?int
-    {
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getTitle(): ?string
-    {
+    public function getTitle(): ?string {
         return $this->title;
     }
 
-    public function setTitle(string $title): self
-    {
+    public function setTitle(string $title): self {
         $this->title = $title;
 
         return $this;
     }
 
-    public function getSrc(): ?string
-    {
+    public function getSrc(): ?string {
         return $this->src;
     }
 
-    public function setSrc(string $src): self
-    {
+    public function setSrc(string $src): self {
         $this->src = $src;
 
         return $this;
     }
 
-    public function getType(): ?string
-    {
+    public function getType(): ?string {
         return $this->type;
     }
 
-    public function setType(string $type): self
-    {
+    public function setType(string $type): self {
         $this->type = $type;
 
         return $this;
     }
 
-    public function getPoster(): ?bool
-    {
+    public function getPoster(): ?bool {
         return $this->poster;
     }
 
-    public function setPoster(bool $poster): self
-    {
+    public function setPoster(bool $poster): self {
         $this->poster = $poster;
 
         return $this;
     }
 
-    public function getPost(): ?Post
-    {
+    public function getPost(): ?Post {
         return $this->post;
     }
 
-    public function setPost(?Post $post): self
-    {
+    public function setPost(?Post $post): self {
         $this->post = $post;
 
         return $this;

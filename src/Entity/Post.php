@@ -30,60 +30,50 @@ class Post
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Media::class)]
     private $medias;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->media = new ArrayCollection();
         $this->medias = new ArrayCollection();
     }
 
-    public function getId(): ?int
-    {
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getTitle(): ?string
-    {
+    public function getTitle(): ?string {
         return $this->title;
     }
 
-    public function setTitle(string $title): self
-    {
+    public function setTitle(string $title): self {
         $this->title = $title;
 
         return $this;
     }
 
-    public function getContent(): ?string
-    {
+    public function getContent(): ?string {
         return $this->content;
     }
 
-    public function setContent(string $content): self
-    {
+    public function setContent(string $content): self {
         $this->content = $content;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
+    public function getCreatedAt(): ?\DateTimeInterface {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
+    public function setCreatedAt(\DateTimeInterface $createdAt): self {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
+    public function getUpdatedAt(): ?\DateTimeInterface {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
-    {
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self {
         $this->updatedAt = $updatedAt;
 
         return $this;
@@ -92,13 +82,11 @@ class Post
     /**
      * @return Collection<int, Media>
      */
-    public function getMedias(): Collection
-    {
+    public function getMedias(): Collection {
         return $this->medias;
     }
 
-    public function addMedia(Media $media): self
-    {
+    public function addMedia(Media $media): self {
         if (!$this->medias->contains($media)) {
             $this->medias[] = $media;
             $media->setPost($this);
@@ -107,8 +95,7 @@ class Post
         return $this;
     }
 
-    public function removeMedia(Media $media): self
-    {
+    public function removeMedia(Media $media): self {
         if ($this->medias->removeElement($media)) {
             // set the owning side to null (unless already changed)
             if ($media->getPost() === $this) {

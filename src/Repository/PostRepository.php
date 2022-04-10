@@ -16,8 +16,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class PostRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
+    public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, Post::class);
     }
 
@@ -27,8 +26,7 @@ class PostRepository extends ServiceEntityRepository
      *
      * @return int|mixed|string
      */
-    public function findAllPostsWithPoster($maxResult = null, $firstResult = null)
-    {
+    public function findAllPostsWithPoster($maxResult = null, $firstResult = null) {
         return $this->createQueryBuilder('post')
             ->addSelect('media')
             ->leftJoin('post.medias', 'media')
@@ -46,8 +44,7 @@ class PostRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Post $entity, bool $flush = true): void
-    {
+    public function add(Post $entity, bool $flush = true): void {
         $this->_em->persist($entity);
         if ($flush) {
             $this->_em->flush();
@@ -58,8 +55,7 @@ class PostRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Post $entity, bool $flush = true): void
-    {
+    public function remove(Post $entity, bool $flush = true): void {
         $this->_em->remove($entity);
         if ($flush) {
             $this->_em->flush();

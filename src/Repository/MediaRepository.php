@@ -16,8 +16,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class MediaRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
+    public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, Media::class);
     }
 
@@ -25,8 +24,7 @@ class MediaRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Media $entity, bool $flush = true): void
-    {
+    public function add(Media $entity, bool $flush = true): void {
         $this->_em->persist($entity);
         if ($flush) {
             $this->_em->flush();
@@ -37,8 +35,7 @@ class MediaRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Media $entity, bool $flush = true): void
-    {
+    public function remove(Media $entity, bool $flush = true): void {
         $this->_em->remove($entity);
         if ($flush) {
             $this->_em->flush();

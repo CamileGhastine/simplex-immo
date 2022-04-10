@@ -5,9 +5,11 @@
 {% block body %}
     <div class="row">
         <h1 class="col-12 simplexHomepage col-12 d-flex align-items-end justify-content-center py-3">
-            <img src="{{ asset('/img/shared/logoContoure.png') }}" class="logoHeader" alt="logo Simplex-Immo"/>
-            <span class="pb-1"><span class="hidden">S</span>implex-Immo</span>
+            Actualité
         </h1>
+        <div class="col-12 d-flex justify-content-end">
+            {{ renderPagination | raw }}
+        </div>
         {% for  post in posts %}
             <div class="col-12 card text-white bg-secondary border-warning mb-3">
                 <div class="card-header text-end text-muted">
@@ -33,5 +35,8 @@
                 </div>
             </div>
         {% endfor %}
+        <div class="col-12 d-flex justify-content-center mb-3">
+            {{ renderPagination | raw }}
+        </div>
     </div>
 {% endblock %}
