@@ -34,8 +34,11 @@ class BootstrapPaginator implements PaginatorInterface
      *
      * @return string
      */
-    public function render(int $numberPagesPerRender = self::NUMBER_PAGES_PER_RENDER): string {
+    public function render(int $numberPagesPerRender = self::NUMBER_PAGES_PER_RENDER): ?string {
         $this->setParameter($numberPagesPerRender);
+
+        if ($this->numberOfPages === 0)
+            return null;
 
         $disabled = $this->page === 1 ? 'disabled' : null;
         $render = '<ul class="pagination pagination-sm"><li class="page-item ' . $disabled . '"><a class="page-link" href="?page=1">&laquo;</a></li>';
@@ -60,10 +63,12 @@ class BootstrapPaginator implements PaginatorInterface
      * @return void
      */
     private function hydrate(ServiceEntityRepository $repository, string $action, int $page, int $maxResultsPerPage): void {
-        $this->maxResultsPerPage = $maxResultsPerPage;
-        $this->page = $page > 0 ? $page : 1;
         $this->numberOfResults = count($repository->$action());
-        $this->results = $repository->$action($maxResultsPerPage, ($page - 1) * $maxResultsPerPage);
+        $this->maxResultsPerPage = $maxResultsPerPage;
+        $this->numberOfPages = (int)ceil($this->numberOfResults / $maxResultsPerPage);
+        $page = $page > 0 ? $page : 1;
+        $this->page = $page > $this->numberOfPages ? $this->numberOfPages : $page;
+        $this->results = $repository->$action($maxResultsPerPage, ($this->page - 1) * $maxResultsPerPage);
     }
 
     /**
@@ -72,7 +77,6 @@ class BootstrapPaginator implements PaginatorInterface
      * @return void
      */
     private function setParameter(int $numberPagesPerRender) {
-        $this->numberOfPages = (int)ceil($this->numberOfResults / $this->maxResultsPerPage);
 
         $numberPagesPerRender = $this->numberOfPages < $numberPagesPerRender
             ? $this->numberOfPages

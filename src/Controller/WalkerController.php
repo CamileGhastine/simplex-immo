@@ -26,8 +26,8 @@ class WalkerController extends AbstractController
         $page = (int)$request->query->get('page') > 0 ? (int)$request->query->get('page') : 1;
 
         return $this->render('walker/posts/index.html.twig', [
-            'posts' => $this->paginator->paginate($this->postRepository, 'findAllPostsWithPoster', $page),
-            'renderPagination' => $this->paginator->render(6)
+            'posts' => $this->paginator->paginate($this->postRepository, 'findAllPostsWithPoster', $page, 10),
+            'renderPagination' => $this->paginator->render()
         ]);
     }
 }

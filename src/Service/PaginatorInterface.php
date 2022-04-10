@@ -16,5 +16,5 @@ interface PaginatorInterface
     /**
      * @return string
      */
-    public function render(int $numberPagesPerRender): string;
+    public function render(int $numberPagesPerRender): ?string;
 }
