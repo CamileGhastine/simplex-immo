@@ -30,6 +30,9 @@ class Post
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Media::class)]
     private $medias;
 
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'posts')]
+    private $category;
+
     public function __construct() {
         $this->media = new ArrayCollection();
         $this->medias = new ArrayCollection();
@@ -102,6 +105,18 @@ class Post
                 $media->setPost(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

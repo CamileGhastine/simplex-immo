@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Category;
 use App\Entity\Media;
 use App\Entity\Post;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -17,6 +18,19 @@ class PostFixtures extends Fixture
      */
     public function load(ObjectManager $manager) {
         $faker = Factory::create('fr_FR');
+
+        //Creation of fake categories
+        $categories = [];
+        $titles = ["Actualité", "Reportage", "Tutoriel", "F.A.Q."];
+
+        foreach ($titles as $title) {
+            $category = new Category();
+            $category->setTitle($title);
+
+            $categories[] = $category;
+
+            $manager->persist($category);
+        }
 
         // Creatation og fake articles
         for ($i = 0; $i < self::NB_POSTS; ++$i) {
@@ -47,6 +61,9 @@ class PostFixtures extends Fixture
 
                 $manager->persist($media);
             }
+
+            $post->setCategory($categories[rand(0, count($categories) - 1)]);
+
             $manager->persist($post);
         }
         $manager->flush();
