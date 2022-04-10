@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\CategoryRepository;
 use App\Repository\PostRepository;
 use App\Service\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,12 +23,21 @@ class WalkerController extends AbstractController
     }
 
     #[Route('/post', name: 'index', methods: ["GET"])]
-    public function indexNews(Request $request): Response {
+    #[Route('/post/catgeory/{id<[0-9]+>}', name: 'post_by_category', methods: ["GET"])]
+    public function indexNews(Request $request, CategoryRepository $categoryRepository, int $id =null): Response {
         $page = (int)$request->query->get('page') > 0 ? (int)$request->query->get('page') : 1;
 
         return $this->render('walker/posts/index.html.twig', [
             'posts' => $this->paginator->paginate($this->postRepository, 'findAllPostsWithPoster', $page, 10),
-            'renderPagination' => $this->paginator->render()
+            'renderPagination' => $this->paginator->render(),
+            'categories' => $categoryRepository->findAllWithoutFaq(),
+        ]);
+    }
+
+    #[Route('/faq', name: 'faq')]
+    public function faq(): Response {
+        return $this->render('walker/homepage.html.twig', [
+            'posts' => $this->postRepository->findAllPostsWithPoster(9, 0)
         ]);
     }
 }
