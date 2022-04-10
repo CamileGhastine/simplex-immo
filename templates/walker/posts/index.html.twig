@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Simplex-Immo: Accueil{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <h1 class="col-12 simplexHomepage col-12 d-flex align-items-end justify-content-center py-3">
+            <img src="{{ asset('/img/shared/logoContoure.png') }}" class="logoHeader" alt="logo Simplex-Immo"/>
+            <span class="pb-1"><span class="hidden">S</span>implex-Immo</span>
+        </h1>
+        {% for  post in posts %}
+            <div class="col-12 card text-white bg-secondary border-warning mb-3">
+                <div class="card-header text-end text-muted">
+                    {{ post.createdAt|date("m/d/Y") == post.updatedAt|date("m/d/Y")  ?
+                    post.createdAt|date("m/d/Y") : 'mise à jour le ' ~ post.updatedAt|date("m/d/Y") }}</div>
+                <div class="card-body row">
+                    <div class="col-2">
+                        {% set poster = (post.medias | first) ? (post.medias | first).src : '/img/posts/post.jpg' %}
+                        <img src="{{ asset(poster) }}" alt="{{ "alt de l'image" }}"
+                             class="img-thumbnail"/>
+                    </div>
+                    <div class="col-10">
+                        <h2 class="card-title">
+                            <a href="" class="newsLink">{{ post.title }}</a>
+                        </h2>
+                        <div class="col-10">
+                            <p class="card-text">
+                                {{ post.content | slice(1, 400) }} ...
+                                <a href="{{ path('index') }}">lire la suite</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -9,11 +9,23 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class WalkerController extends AbstractController
 {
+    public function __construct(
+        private PostRepository $postRepository,
+    ){}
+
     #[Route('/', name: 'homepage')]
-    public function index(PostRepository $postRepository): Response
+    public function homepage(): Response
     {
         return $this->render('walker/homepage.html.twig', [
-            'posts' => $postRepository->findAllPostsWithPoster(9, 0)
+            'posts' => $this->postRepository->findAllPostsWithPoster(9, 0)
+        ]);
+    }
+
+    #[Route('/post', name: 'index')]
+    public function indexNews(): Response
+    {
+        return $this->render('walker/posts/index.html.twig', [
+            'posts' => $this->postRepository->findAllPostsWithPoster()
         ]);
     }
 }
