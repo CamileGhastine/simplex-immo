@@ -19,7 +19,7 @@
             </div>
         </div>
 
-        {% if post.images|length>0 %}
+        {% if post.images|length > 0 or post.videos|length > 0 %}
             <div class="card-header row">
                 <div class="col-4 offset-4">
                     {{ include('walker/post/show_carousel.html.twig') }}

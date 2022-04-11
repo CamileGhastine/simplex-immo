@@ -84,6 +84,11 @@ class PostRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @param int $id
+     * @return Post|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function findOneWithCategoryImagesVideos(int $id): ?Post
     {
         return $this->createQueryBuilder('post')
