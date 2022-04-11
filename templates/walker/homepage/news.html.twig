@@ -1,13 +1,24 @@
 <section class="card text-white bg-secondary border-warning mb-3 row ms-5">
     <h2 class="card-header text-center">Actualité</h2>
-    {% for  post in 1..5 %}
+    {% for  post in posts %}
         <a href="" class="newsLink">
-            <div class="card-body row">
-                <div class="col-2 text-center d-flex align-items-center">
-                    <img src="{{ asset('/img/news/post.jpg') }}" alt="{{ "alt de l'image" }}" class="img-thumbnail"/>
+            <div class="card bg-secondary border-warning m-1">
+                <div class="card-body row">
+                    <div class="col-2 text-center d-flex align-items-center">
+                        {% set poster = (post.medias | first) ? (post.medias | first).src : '/img/post/post.jpg' %}
+
+                        <img src="{{ asset(poster) }}" alt="{{ "alt de l'image" }}"
+                             class="img-thumbnail"/>
+                    </div>
+                    <div class="col-10 card-title d-flex align-items-center ps-2">{{ post.title }}</div>
+
+                    <div class="col-12 text-end">
+                        {{ post.createdAt|date("m/d/Y") == post.updatedAt|date("m/d/Y")  ?
+                        post.createdAt|date("m/d/Y") : 'mise à jour le ' ~ post.updatedAt|date("m/d/Y") }}
+                    </div>
                 </div>
-                <div class="col-10 card-title d-flex align-items-center ps-2">{{ "news title" ~ post }}</div>
             </div>
         </a>
     {% endfor %}
+    <a href="{{ path('index') }}" class="text-end p-3">Voir toutes l'actualités</a>
 </section>

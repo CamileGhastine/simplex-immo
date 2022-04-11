@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Simplex-Immo: Accueil{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <h1 class="col-12 simplexHomepage col-12 d-flex align-items-end justify-content-center py-3">
+            Articles
+        </h1>
+
+        <div class="col-12">
+            <div class="row">
+                <div class="col-6 category-badges">
+                    {{ include('walker/post/categories.html.twig') }}
+                </div>
+                <div class="col-6 d-flex justify-content-end">
+                    {{ renderPagination | raw }}
+                </div>
+            </div>
+        </div>
+
+        {% for  post in posts %}
+            {{ include('walker/post/post.html.twig') }}
+        {% endfor %}
+
+        <div class="col-12 d-flex justify-content-center mb-3">
+            {{ renderPagination | raw }}
+        </div>
+    </div>
+{% endblock %}
