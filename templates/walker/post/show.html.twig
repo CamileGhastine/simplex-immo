@@ -32,14 +32,13 @@
 
         <div class="card-body row">
             <div class="col-12">
-                <div class="card-text">
-                    <p class="card-text"> {{ post.content }} </p>
-                </div>
+                <p class="card-text"> {{ post.content }} </p>
             </div>
         </div>
         <div class="card-footer text-center d-flex justify-content-around">
             <a href="{{ path('index') }}">Retour à la liste des articles</a>
-            <a href="{{ path('index_by_category', {'id' : post.category.id}) }}">Retour à la liste des {{ post.category.title }}s</a>
+            <a href="{{ path('index_by_category', {'id' : post.category.id}) }}">Retour à la liste
+                des {{ post.category.title }}s</a>
         </div>
     </div>
 {% endblock %}

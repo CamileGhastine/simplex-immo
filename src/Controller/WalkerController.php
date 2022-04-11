@@ -75,7 +75,7 @@ class WalkerController extends AbstractController
     #[Route('/post/{id<[0-9]+>}', name: 'show', methods: ["GET"])]
     public function show(int $id): Response {
         return $this->render('walker/post/show.html.twig', [
-            'post' => $this->postRepository->find($id)
+            'post' => $this->postRepository->findOneWithCategoryImagesVideos($id)
         ]);
     }
 
