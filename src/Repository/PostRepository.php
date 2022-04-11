@@ -36,8 +36,7 @@ class PostRepository extends ServiceEntityRepository
             ->setFirstResult($firstResult)
             ->setMaxResults($maxResult)
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
     /**
@@ -46,7 +45,7 @@ class PostRepository extends ServiceEntityRepository
      *
      * @return float|int|mixed|string
      */
-    public function findAllPostsByCategoryWithPoster($maxResult = null, $firstResult = null, int $id) {
+    public function findAllPostsByCategoryWithPoster(int $id, $maxResult = null, $firstResult = null) {
         return $this->createQueryBuilder('post')
             ->addSelect('media')
             ->addSelect('category')
@@ -59,8 +58,7 @@ class PostRepository extends ServiceEntityRepository
             ->setFirstResult($firstResult)
             ->setMaxResults($maxResult)
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
 

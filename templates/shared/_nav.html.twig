@@ -11,6 +11,7 @@
         {% set controllers = {
             'homepage' : 'App\\Controller\\WalkerController::homepage',
             'index' : 'App\\Controller\\WalkerController::index',
+            'indexByCategory' : 'App\\Controller\\WalkerController::indexByCategory',
             'faq' : 'App\\Controller\\WalkerController::faq',
             'prices' : 'App\\Controller\\WalkerController::prices',
             'login' : 'App\\Controller\\WalkerController::login',
@@ -26,7 +27,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    {% set active = (controllers['index'] == controller ? 'active' : '') %}
+                    {% set active = ((controllers['index'] == controller or controllers['indexByCategory'] == controller) ? 'active' : '') %}
                     <a class="nav-link {{ active }}" href="{{ path('index') }}">Articles
                         {{ active ? '<span class="visually-hidden">(current)</span>' : '' }}
                     </a>
