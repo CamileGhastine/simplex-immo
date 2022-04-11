@@ -41,6 +41,30 @@ class PostRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param $maxResult
+     * @param $firstResult
+     *
+     * @return float|int|mixed|string
+     */
+    public function findAllPostsByCategoryWithPoster($maxResult = null, $firstResult = null, int $id) {
+        return $this->createQueryBuilder('post')
+            ->addSelect('media')
+            ->addSelect('category')
+            ->innerJoin('post.category', 'category')
+            ->leftJoin('post.medias', 'media')
+            ->where('category.id = :id')
+            ->andWhere('media.poster = 1 OR media.poster IS NULL')
+            ->setParameter('id', $id)
+            ->orderBy('post.updatedAt', 'DESC')
+            ->setFirstResult($firstResult)
+            ->setMaxResults($maxResult)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+
+    /**
      * @throws ORMException
      * @throws OptimisticLockException
      */

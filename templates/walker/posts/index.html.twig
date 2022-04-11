@@ -11,13 +11,10 @@
             <div class="row">
                 <div class="col-6 category-badges">
                     {% for category in categories %}
-                        <a href="{{ path('post_by_category', {'id' : category.id}) }}" >
+                        <a href="{{ path('index_by_category', {'id' : category.id}) }}">
                             <span class="badge bg-secondary">{{ category.title }}</span>
                         </a>
                     {% endfor %}
-                    <a href="{{ path('faq') }}">
-                        <span class="badge bg-secondary">F.A.Q.</span>
-                    </a>
                 </div>
                 <div class="col-6 d-flex justify-content-end">
                     {{ renderPagination | raw }}
@@ -27,9 +24,17 @@
 
         {% for  post in posts %}
             <div class="col-12 card text-white bg-secondary border-warning mb-3">
-                <div class="card-header text-end text-muted">
-                    {{ post.createdAt|date("m/d/Y") == post.updatedAt|date("m/d/Y")  ?
-                    post.createdAt|date("m/d/Y") : 'mise à jour le ' ~ post.updatedAt|date("m/d/Y") }}</div>
+                <div class="card-header row">
+                    <div class=" col-11 text-start text-muted">
+                        {{ post.createdAt|date("m/d/Y") == post.updatedAt|date("m/d/Y")  ?
+                        post.createdAt|date("m/d/Y") : 'mise à jour le ' ~ post.updatedAt|date("m/d/Y") }}
+                    </div>
+                    <div class="col-1 text-center">
+                        <span class="badge rounded-pill bg-warning">{{ post.category.title }}</span>
+
+                    </div>
+                </div>
+
                 <div class="card-body row">
                     <div class="col-2">
                         {% set poster = (post.medias | first) ? (post.medias | first).src : '/img/posts/post.jpg' %}

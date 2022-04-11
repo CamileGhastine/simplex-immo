@@ -15,6 +15,9 @@ class WalkerController extends AbstractController
     public function __construct(private PostRepository $postRepository, private PaginatorInterface $paginator) {
     }
 
+    /**
+     * @return Response
+     */
     #[Route('/', name: 'homepage')]
     public function homepage(): Response {
         return $this->render('walker/homepage.html.twig', [
@@ -22,18 +25,50 @@ class WalkerController extends AbstractController
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param CategoryRepository $categoryRepository
+     * @return Response
+     */
     #[Route('/post', name: 'index', methods: ["GET"])]
-    #[Route('/post/catgeory/{id<[0-9]+>}', name: 'post_by_category', methods: ["GET"])]
-    public function indexNews(Request $request, CategoryRepository $categoryRepository, int $id =null): Response {
+    public function index(Request $request, CategoryRepository $categoryRepository): Response {
         $page = (int)$request->query->get('page') > 0 ? (int)$request->query->get('page') : 1;
 
         return $this->render('walker/posts/index.html.twig', [
-            'posts' => $this->paginator->paginate($this->postRepository, 'findAllPostsWithPoster', $page, 10),
+            'posts' => $this->paginator->paginate($this->postRepository, 'findAllPostsWithPoster', [
+                'page' => $page,
+                'maxResultsPerPage' => 10
+            ]),
             'renderPagination' => $this->paginator->render(),
-            'categories' => $categoryRepository->findAllWithoutFaq(),
+            'categories' => $categoryRepository->findAll(),
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param CategoryRepository $categoryRepository
+     * @param int $id
+     *
+     * @return Response
+     */
+    #[Route('/post/category/{id<[0-9]+>}', name: 'index_by_category', methods: ["GET"])]
+    public function indexByCategory(Request $request, CategoryRepository $categoryRepository, int $id): Response {
+        $page = (int)$request->query->get('page') > 0 ? (int)$request->query->get('page') : 1;
+
+        return $this->render('walker/posts/index.html.twig', [
+            'posts' => $this->paginator->paginate($this->postRepository, 'findAllPostsByCategoryWithPoster', [
+                'page' => $page,
+                'maxResultsPerPage' => 10,
+                'id' => $id
+            ]),
+            'renderPagination' => $this->paginator->render(),
+            'categories' => $categoryRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * @return Response
+     */
     #[Route('/faq', name: 'faq')]
     public function faq(): Response {
         return $this->render('walker/homepage.html.twig', [

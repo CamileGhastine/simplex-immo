@@ -21,7 +21,7 @@ class PostFixtures extends Fixture
 
         //Creation of fake categories
         $categories = [];
-        $titles = ["Actualité", "Reportage", "Tutoriel", "F.A.Q."];
+        $titles = ["Actualité", "Reportage", "Tutoriel"];
 
         foreach ($titles as $title) {
             $category = new Category();

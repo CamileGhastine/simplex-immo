@@ -20,19 +20,19 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
-    /**
-     * Get all categories except F.A.Q
-     * @return float|int|mixed|string
-     */
-    public function findAllWithoutFaq() {
-        $queryBuilder = $this->createQueryBuilder('category');
-        $expr = $queryBuilder->expr();
-        $orx=$expr->orX();
-        $orx->add($expr->neq('category.title', $expr->literal('F.A.Q.')));
-        return $queryBuilder->Where($orx)
-            ->getQuery()
-            ->getResult();
-    }
+//    /**
+//     * Get all categories except F.A.Q
+//     * @return float|int|mixed|string
+//     */
+//    public function findAllWithoutFaq() {
+//        $queryBuilder = $this->createQueryBuilder('category');
+//        $expr = $queryBuilder->expr();
+//        $orx=$expr->orX();
+//        $orx->add($expr->neq('category.title', $expr->literal('F.A.Q.')));
+//        return $queryBuilder->Where($orx)
+//            ->getQuery()
+//            ->getResult();
+//    }
 
     /**
      * @throws ORMException

@@ -11,7 +11,7 @@ interface PaginatorInterface
      * @param int $page
      * @return array
      */
-    public function paginate(ServiceEntityRepository $repository, string $action, int $page, int $maxResult): array;
+    public function paginate(ServiceEntityRepository $repository, string $action, array $parameters): array;
 
     /**
      * @return string

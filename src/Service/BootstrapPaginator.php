@@ -22,16 +22,14 @@ class BootstrapPaginator implements PaginatorInterface
      * @param int $page
      * @return array
      */
-    public function paginate(ServiceEntityRepository $repository, string $action, int $page = 1, int $maxResultsPerPage = self::MAX_RESULT_PER_PAGE): array {
-        $this->hydrate($repository, $action, $page, $maxResultsPerPage);
-
+    public function paginate(ServiceEntityRepository $repository, string $action, array $parameters): array {
+        $this->hydrate($repository, $action, $parameters);
         return $this->results;
     }
 
     /**
      * @param int $id
      * @param int $page
-     *
      * @return string
      */
     public function render(int $numberPagesPerRender = self::NUMBER_PAGES_PER_RENDER): ?string {
@@ -62,13 +60,17 @@ class BootstrapPaginator implements PaginatorInterface
      *
      * @return void
      */
-    private function hydrate(ServiceEntityRepository $repository, string $action, int $page, int $maxResultsPerPage): void {
-        $this->numberOfResults = count($repository->$action());
-        $this->maxResultsPerPage = $maxResultsPerPage;
+    private function hydrate(ServiceEntityRepository $repository, string $action, array $parameters): void {
+        extract($parameters);
+
+        $id = isset($id) ? $id : null ;
+        $this->numberOfResults = count($repository->$action(null, null, $id));
+        $maxResultsPerPage = $maxResultsPerPage ?: self:: MAX_RESULT_PER_PAGE;
         $this->numberOfPages = (int)ceil($this->numberOfResults / $maxResultsPerPage);
         $page = $page > 0 ? $page : 1;
         $this->page = $page > $this->numberOfPages ? $this->numberOfPages : $page;
-        $this->results = $repository->$action($maxResultsPerPage, ($this->page - 1) * $maxResultsPerPage);
+
+        $this->results = $repository->$action($maxResultsPerPage, ($this->page - 1) * $maxResultsPerPage, $id);
     }
 
     /**
