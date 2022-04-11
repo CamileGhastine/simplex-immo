@@ -1,11 +1,11 @@
 <section class="card text-white bg-secondary border-warning mb-3 row ms-5">
     <h2 class="card-header text-center">Actualité</h2>
     {% for  post in posts %}
-        <a href="" class="newsLink">
+        <a href="{{ path('show', {'id': post.id}) }}" class="newsLink">
             <div class="card bg-secondary border-warning m-1">
                 <div class="card-body row">
                     <div class="col-2 text-center d-flex align-items-center">
-                        {% set poster = (post.medias | first) ? (post.medias | first).src : '/img/post/post.jpg' %}
+                        {% set poster = (post.images | first) ? (post.images | first).src : '/img/post/post.jpg' %}
 
                         <img src="{{ asset(poster) }}" alt="{{ "alt de l'image" }}"
                              class="img-thumbnail"/>

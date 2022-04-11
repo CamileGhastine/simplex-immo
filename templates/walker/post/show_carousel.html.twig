@@ -1,12 +1,12 @@
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
-        {% for media in post.medias  %}
-            <div class="carousel-item {{ media.poster ? 'active' :'' }}">
-                <img src="{{ media.src }}" class="d-block w-100" alt="...">
+        {% for image in post.images  %}
+            <div class="carousel-item {{ image.poster ? 'active' :'' }}">
+                <img src="{{ image.src }}" class="d-block w-100" alt="...">
             </div>
         {% endfor %}
     </div>
-    {% if post.medias |length >1 %}
+    {% if post.images |length >1 %}
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>

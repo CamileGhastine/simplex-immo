@@ -28,10 +28,10 @@ class PostRepository extends ServiceEntityRepository
      */
     public function findAllPostsWithPoster($maxResult = null, $firstResult = null) {
         return $this->createQueryBuilder('post')
-            ->addSelect('media')
-            ->leftJoin('post.medias', 'media')
-            ->where('media.poster = 1')
-            ->orWhere('media.poster IS NULL')
+            ->addSelect('image')
+            ->leftJoin('post.images', 'image')
+            ->where('image.poster = 1')
+            ->orWhere('image.poster IS NULL')
             ->orderBy('post.updatedAt', 'DESC')
             ->setFirstResult($firstResult)
             ->setMaxResults($maxResult)
@@ -47,12 +47,12 @@ class PostRepository extends ServiceEntityRepository
      */
     public function findAllPostsByCategoryWithPoster($maxResult = null, $firstResult = null, int $id) {
         return $this->createQueryBuilder('post')
-            ->addSelect('media')
+            ->addSelect('image')
             ->addSelect('category')
             ->innerJoin('post.category', 'category')
-            ->leftJoin('post.medias', 'media')
+            ->leftJoin('post.images', 'image')
             ->where('category.id = :id')
-            ->andWhere('media.poster = 1 OR media.poster IS NULL')
+            ->andWhere('image.poster = 1 OR image.poster IS NULL')
             ->setParameter('id', $id)
             ->orderBy('post.updatedAt', 'DESC')
             ->setFirstResult($firstResult)

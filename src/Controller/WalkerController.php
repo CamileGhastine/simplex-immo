@@ -92,6 +92,6 @@ class WalkerController extends AbstractController
      */
     #[Route('/prices', name: 'prices')]
     public function prices(): Response {
-        return $this->render('walker/faq/prices.html.twig');
+        return $this->render('walker/prices/prices.html.twig');
     }
 }

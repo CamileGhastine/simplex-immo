@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Category;
+use App\Entity\Image;
 use App\Entity\Media;
 use App\Entity\Post;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -32,7 +33,7 @@ class PostFixtures extends Fixture
             $manager->persist($category);
         }
 
-        // Creatation og fake articles
+        // Creation of fake articles
         for ($i = 0; $i < self::NB_POSTS; ++$i) {
             $post = new Post();
 
@@ -43,23 +44,23 @@ class PostFixtures extends Fixture
                 ->setCreatedAt($date)
                 ->setUpdatedAt($date);
 
-            //  Creation of fake medias
+            //  Creation of fake images
             for ($j = 0; $j < rand(0, 3); $j++) {
 
                 if ($i % 5 === 0)
                     continue;
 
-                $media = new Media();
+                $image = new Image();
 
-                $media->setTitle(substr($faker->sentence(3, true), 0, 29))
+                $image->setTitle(substr($faker->sentence(3, true), 0, 29))
                     ->setSrc("https://picsum.photos/300/3" . $j . rand(0, 9))
-                    ->setType("image")->setPoster(false);
+                    ->setPoster(false);
                 if ($j === 0)
-                    $media->setPoster(true);
+                    $image->setPoster(true);
 
-                $post->addMedia($media);
+                $post->addImage($image);
 
-                $manager->persist($media);
+                $manager->persist($image);
             }
 
             $post->setCategory($categories[rand(0, count($categories) - 1)]);
