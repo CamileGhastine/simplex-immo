@@ -27,15 +27,20 @@ class Post
     #[ORM\Column(type: 'datetime')]
     private $updatedAt;
 
-    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Media::class)]
-    private $medias;
-
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'posts')]
     private $category;
+
+    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Image::class, orphanRemoval: true)]
+    private $images;
+
+    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Video::class, orphanRemoval: true)]
+    private $videos;
 
     public function __construct() {
         $this->media = new ArrayCollection();
         $this->medias = new ArrayCollection();
+        $this->images = new ArrayCollection();
+        $this->videos = new ArrayCollection();
     }
 
     public function getId(): ?int {
@@ -82,33 +87,6 @@ class Post
         return $this;
     }
 
-    /**
-     * @return Collection<int, Media>
-     */
-    public function getMedias(): Collection {
-        return $this->medias;
-    }
-
-    public function addMedia(Media $media): self {
-        if (!$this->medias->contains($media)) {
-            $this->medias[] = $media;
-            $media->setPost($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMedia(Media $media): self {
-        if ($this->medias->removeElement($media)) {
-            // set the owning side to null (unless already changed)
-            if ($media->getPost() === $this) {
-                $media->setPost(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getCategory(): ?Category
     {
         return $this->category;
@@ -117,6 +95,66 @@ class Post
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getPost() === $this) {
+                $image->setPost(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Video>
+     */
+    public function getVideos(): Collection
+    {
+        return $this->videos;
+    }
+
+    public function addVideo(Video $video): self
+    {
+        if (!$this->videos->contains($video)) {
+            $this->videos[] = $video;
+            $video->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVideo(Video $video): self
+    {
+        if ($this->videos->removeElement($video)) {
+            // set the owning side to null (unless already changed)
+            if ($video->getPost() === $this) {
+                $video->setPost(null);
+            }
+        }
 
         return $this;
     }

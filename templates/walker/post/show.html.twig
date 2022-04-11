@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Simplex-Immo: Articles{% endblock %}
+
+{% block body %}
+    <h1 class="col-12 simplexHomepage col-12 d-flex align-items-end justify-content-center py-3">
+        {{ post.title }}
+    </h1>
+    <div class="col-12 card text-white bg-secondary border-warning mb-3">
+        <div class="card-header row">
+            <div class=" col-6 text-start text-muted">
+                {{ post.createdAt|date("d/m/Y") == post.updatedAt|date("d/m/Y")  ?
+                post.createdAt|date("d/m/Y") : 'mise à jour le ' ~ post.updatedAt|date("d/m/Y") }}
+            </div>
+            <div class="col-6 text-end">
+                <span class="badge rounded-pill bg-warning"><a
+                            href="{{ path('index_by_category', {'id': post.category.id}) }}"
+                            class="newsLink">{{ post.category.title }}</a></span>
+            </div>
+        </div>
+
+        {% if post.images|length > 0 or post.videos|length > 0 %}
+            <div class="card-header row">
+                <div class="col-4 offset-4">
+                    {{ include('walker/post/show_carousel.html.twig') }}
+                </div>
+                <div class="col 4 d-flex align-items-center justify-content-center">
+                    {{ include('walker/post/show_video.html.twig') }}
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="card-body row">
+            <div class="col-12">
+                <p class="card-text"> {{ post.content }} </p>
+            </div>
+        </div>
+        <div class="card-footer text-center d-flex justify-content-around">
+            <a href="{{ path('index') }}">Retour à la liste des articles</a>
+            <a href="{{ path('index_by_category', {'id' : post.category.id}) }}">Retour à la liste
+                des {{ post.category.title }}s</a>
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,29 +1,28 @@
 <div class="col-12 card text-white bg-secondary border-warning mb-3">
     <div class="card-header row">
         <div class=" col-11 text-start text-muted">
-            {{ post.createdAt|date("m/d/Y") == post.updatedAt|date("m/d/Y")  ?
-            post.createdAt|date("m/d/Y") : 'mise à jour le ' ~ post.updatedAt|date("m/d/Y") }}
+            {{ post.createdAt|date("d/m/Y") == post.updatedAt|date("d/m/Y")  ?
+            post.createdAt|date("d/m/Y") : 'mise à jour le ' ~ post.updatedAt|date("d/m/Y") }}
         </div>
         <div class="col-1 text-center">
             <span class="badge rounded-pill bg-warning">{{ post.category.title }}</span>
-
         </div>
     </div>
 
     <div class="card-body row">
         <div class="col-2">
-            {% set poster = (post.medias | first) ? (post.medias | first).src : '/img/post/post.jpg' %}
+            {% set poster = (post.images | first) ? (post.images | first).src : '/img/post/post.jpg' %}
             <img src="{{ asset(poster) }}" alt="{{ "alt de l'image" }}"
                  class="img-thumbnail"/>
         </div>
         <div class="col-10">
             <h2 class="card-title">
-                <a href="" class="newsLink">{{ post.title }}</a>
+                <a href="{{ path('show', {'id' : post.id}) }}" class="newsLink">{{ post.title }}</a>
             </h2>
             <div class="col-10">
                 <p class="card-text">
                     {{ post.content | slice(1, 400) }} ...
-                    <a href="{{ path('index') }}">lire la suite</a>
+                    <a href="{{ path('show', {'id' : post.id}) }}">lire la suite</a>
                 </p>
             </div>
         </div>

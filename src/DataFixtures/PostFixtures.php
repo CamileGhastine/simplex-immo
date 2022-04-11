@@ -3,8 +3,10 @@
 namespace App\DataFixtures;
 
 use App\Entity\Category;
+use App\Entity\Image;
 use App\Entity\Media;
 use App\Entity\Post;
+use App\Entity\Video;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -32,7 +34,7 @@ class PostFixtures extends Fixture
             $manager->persist($category);
         }
 
-        // Creatation og fake articles
+        // Creation of fake articles
         for ($i = 0; $i < self::NB_POSTS; ++$i) {
             $post = new Post();
 
@@ -43,23 +45,44 @@ class PostFixtures extends Fixture
                 ->setCreatedAt($date)
                 ->setUpdatedAt($date);
 
-            //  Creation of fake medias
+            //  Creation of fake images
             for ($j = 0; $j < rand(0, 3); $j++) {
 
                 if ($i % 5 === 0)
                     continue;
 
-                $media = new Media();
+                $image = new Image();
 
-                $media->setTitle(substr($faker->sentence(3, true), 0, 29))
+                $image->setTitle(substr($faker->sentence(3, true), 0, 29))
                     ->setSrc("https://picsum.photos/300/3" . $j . rand(0, 9))
-                    ->setType("image")->setPoster(false);
+                    ->setPoster(false);
                 if ($j === 0)
-                    $media->setPoster(true);
+                    $image->setPoster(true);
 
-                $post->addMedia($media);
+                $post->addImage($image);
 
-                $manager->persist($media);
+                $manager->persist($image);
+
+                //  Creation of fake videos
+                $videos = [
+                    'https://www.youtube.com/embed/cWhIjM8fjr0',
+                    'https://www.youtube.com/embed/kvNxlyNFfOk',
+                    'https://www.youtube.com/embed/9itOLVl3dLA'
+                ];
+            }
+            for ($j = 0; $j < rand(0, 2); $j++) {
+
+                if ($i % 5 === 0)
+                    continue;
+
+                $video = new Video();
+
+                $video->setTitle(substr($faker->sentence(3, true), 0, 29))
+                    ->setUrl($videos[rand(0, 2)]);
+
+                $post->addVideo($video);
+
+                $manager->persist($video);
             }
 
             $post->setCategory($categories[rand(0, count($categories) - 1)]);

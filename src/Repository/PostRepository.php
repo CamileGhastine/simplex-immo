@@ -28,10 +28,10 @@ class PostRepository extends ServiceEntityRepository
      */
     public function findAllPostsWithPoster($maxResult = null, $firstResult = null) {
         return $this->createQueryBuilder('post')
-            ->addSelect('media')
-            ->leftJoin('post.medias', 'media')
-            ->where('media.poster = 1')
-            ->orWhere('media.poster IS NULL')
+            ->addSelect('image')
+            ->leftJoin('post.images', 'image')
+            ->where('image.poster = 1')
+            ->orWhere('image.poster IS NULL')
             ->orderBy('post.updatedAt', 'DESC')
             ->setFirstResult($firstResult)
             ->setMaxResults($maxResult)
@@ -45,14 +45,14 @@ class PostRepository extends ServiceEntityRepository
      *
      * @return float|int|mixed|string
      */
-    public function findAllPostsByCategoryWithPoster(int $id, $maxResult = null, $firstResult = null) {
+    public function findAllPostsByCategoryWithPoster($maxResult = null, $firstResult = null, int $id) {
         return $this->createQueryBuilder('post')
-            ->addSelect('media')
+            ->addSelect('image')
             ->addSelect('category')
             ->innerJoin('post.category', 'category')
-            ->leftJoin('post.medias', 'media')
+            ->leftJoin('post.images', 'image')
             ->where('category.id = :id')
-            ->andWhere('media.poster = 1 OR media.poster IS NULL')
+            ->andWhere('image.poster = 1 OR image.poster IS NULL')
             ->setParameter('id', $id)
             ->orderBy('post.updatedAt', 'DESC')
             ->setFirstResult($firstResult)
@@ -84,32 +84,25 @@ class PostRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return Post[] Returns an array of Post objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param int $id
+     * @return Post|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findOneWithCategoryImagesVideos(int $id): ?Post
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('post')
+            ->addSelect('category')
+            ->addSelect('image')
+            ->addSelect('video')
+            ->leftJoin('post.category', 'category')
+            ->leftJoin('post.images', 'image')
+            ->leftJoin('post.videos', 'video')
+            ->where('post.id = :id')
+            ->setParameter('id', $id)
             ->getQuery()
-            ->getResult()
+            ->getOneOrNullResult();
         ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Post
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

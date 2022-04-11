@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Simplex-Immo: Actualité{% endblock %}
+{% block title %}Simplex-Immo: Accueil{% endblock %}
 
 {% block body %}
     <div class="row">
@@ -9,10 +9,10 @@
                 <img src="{{ asset('/img/shared/logoContoure.png') }}" class="logoHeader" alt="logo Simplex-Immo"/>
                 <span class="pb-1"><span class="hidden">S</span>implex-Immo</span>
             </h1>
-            {% include 'walker/homepage/promotion.html.twig' %}
+            {% include 'walker/homepage/_promotion.html.twig' %}
         </div>
         <div class="col-4">
-            {% include 'walker/homepage/news.html.twig' %}
+            {% include 'walker/homepage/_news.html.twig' %}
         </div>
     </div>
 {% endblock %}
