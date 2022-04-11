@@ -4,7 +4,6 @@ namespace App\DataFixtures;
 
 use App\Entity\Category;
 use App\Entity\Image;
-use App\Entity\Media;
 use App\Entity\Post;
 use App\Entity\Video;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -40,7 +39,7 @@ class PostFixtures extends Fixture
 
             $date = $faker->dateTimebetween('-100 days');
 
-            $post->setTitle(substr($faker->sentence(3, true), 0, 29))
+            $post->setTitle($faker->sentence(3, true))
                 ->setContent(implode("\n", $faker->sentences(100)))
                 ->setCreatedAt($date)
                 ->setUpdatedAt($date);
@@ -63,13 +62,15 @@ class PostFixtures extends Fixture
 
                 $manager->persist($image);
 
-                //  Creation of fake videos
-                $videos = [
-                    'https://www.youtube.com/embed/cWhIjM8fjr0',
-                    'https://www.youtube.com/embed/kvNxlyNFfOk',
-                    'https://www.youtube.com/embed/9itOLVl3dLA'
-                ];
+
             }
+
+            //  Creation of fake videos
+            $videos = [
+                'https://www.youtube.com/embed/cWhIjM8fjr0',
+                'https://www.youtube.com/embed/kvNxlyNFfOk',
+                'https://www.youtube.com/embed/9itOLVl3dLA'
+            ];
             for ($j = 0; $j < rand(0, 2); $j++) {
 
                 if ($i % 5 === 0)

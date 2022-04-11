@@ -8,29 +8,20 @@
             F.A.Q.
         </h1>
         <div class="toShort">
-            {% for x in 1..5 %}
-                <div class="accordion" id="faq{{ x }}">
+            {% for faq in faqs %}
+                <div class="accordion" id="faq{{ faq.id }}">
                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading{{ x }}">
+                        <h2 class="accordion-header" id="heading{{ faq.id }}">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapse{{ x }}" aria-expanded="false"
-                                    aria-controls="collapse{{ x }}">
-                                {{ 'question '~x }}
+                                    data-bs-target="#collapse{{ faq.id }}" aria-expanded="false"
+                                    aria-controls="collapse{{ faq.id }}">
+                                {{ faq.question }}
                             </button>
                         </h2>
-                        <div id="collapse{{ x }}" class="accordion-collapse collapse" aria-labelledby="heading{{ x }}"
-                             data-bs-parent="#faq{{ x }}">
+                        <div id="collapse{{ faq.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ faq.id }}"
+                             data-bs-parent="#faq{{ faq.id }}">
                             <div class="accordion-body">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque natus nihil
-                                quam repellendus totam. Consequuntur, cupiditate enim ex in maiores nisi, nostrum odit
-                                porro possimus quaerat, quidem ratione reprehenderit sapiente sed soluta voluptatem
-                                voluptates. A aut blanditiis eveniet magni nobis, obcaecati recusandae sunt.
-                                Accusantium, at autem distinctio doloremque dolores doloribus eaque eligendi, ex fugiat
-                                id itaque laboriosam libero magni molestiae necessitatibus nemo numquam porro possimus
-                                quaerat quas quo quod repellendus saepe soluta sunt velit vero voluptate! Aperiam
-                                consectetur dolore ducimus error est fugit in labore laborum modi molestias, nam
-                                perferendis, quisquam recusandae sapiente totam veniam voluptate. Debitis, error
-                                officia.
+                                {{ faq.answer }}
                             </div>
                         </div>
                     </div>

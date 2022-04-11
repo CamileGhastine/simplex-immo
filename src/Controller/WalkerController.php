@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Repository\CategoryRepository;
+use App\Repository\FaqRepository;
 use App\Repository\PostRepository;
 use App\Service\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -83,8 +84,10 @@ class WalkerController extends AbstractController
      * @return Response
      */
     #[Route('/faq', name: 'faq')]
-    public function faq(): Response {
-        return $this->render('walker/faq/faq.html.twig');
+    public function faq(FaqRepository $faqRepository): Response {
+        return $this->render('walker/faq/faq.html.twig', [
+            'faqs' => $faqRepository->findAll()
+        ]);
     }
 
     /**
@@ -94,4 +97,6 @@ class WalkerController extends AbstractController
     public function prices(): Response {
         return $this->render('walker/prices/prices.html.twig');
     }
+
+
 }
