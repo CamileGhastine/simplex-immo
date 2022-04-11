@@ -34,7 +34,7 @@ class WalkerController extends AbstractController
     public function index(Request $request, CategoryRepository $categoryRepository): Response {
         $page = (int)$request->query->get('page') > 0 ? (int)$request->query->get('page') : 1;
 
-        return $this->render('walker/posts/index.html.twig', [
+        return $this->render('walker/post/index.html.twig', [
             'posts' => $this->paginator->paginate($this->postRepository, 'findAllPostsWithPoster', [
                 'page' => $page,
                 'maxResultsPerPage' => 10
@@ -55,7 +55,7 @@ class WalkerController extends AbstractController
     public function indexByCategory(Request $request, CategoryRepository $categoryRepository, int $id): Response {
         $page = (int)$request->query->get('page') > 0 ? (int)$request->query->get('page') : 1;
 
-        return $this->render('walker/posts/index.html.twig', [
+        return $this->render('walker/post/index.html.twig', [
             'posts' => $this->paginator->paginate($this->postRepository, 'findAllPostsByCategoryWithPoster', [
                 'page' => $page,
                 'maxResultsPerPage' => 10,
@@ -71,8 +71,14 @@ class WalkerController extends AbstractController
      */
     #[Route('/faq', name: 'faq')]
     public function faq(): Response {
-        return $this->render('walker/homepage.html.twig', [
-            'posts' => $this->postRepository->findAllPostsWithPoster(9, 0)
-        ]);
+        return $this->render('walker/faq.html.twig');
+    }
+
+    /**
+     * @return Response
+     */
+    #[Route('/prices', name: 'prices')]
+    public function prices(): Response {
+        return $this->render('walker/prices.html.twig');
     }
 }

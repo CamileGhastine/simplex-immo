@@ -30,7 +30,7 @@ class Post
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Media::class)]
     private $medias;
 
-    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'posts')]
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'post')]
     private $category;
 
     public function __construct() {

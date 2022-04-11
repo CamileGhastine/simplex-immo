@@ -8,29 +8,48 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
+        {% set controllers = {
+            'homepage' : 'App\\Controller\\WalkerController::homepage',
+            'index' : 'App\\Controller\\WalkerController::index',
+            'faq' : 'App\\Controller\\WalkerController::faq',
+            'prices' : 'App\\Controller\\WalkerController::prices',
+            'login' : 'App\\Controller\\WalkerController::login',
+        } %}
+        {% set controller = app.request.attributes.get('_controller') %}
+
         <div class="collapse navbar-collapse" id="navbarColor02">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="{{ path('homepage') }}">Accueil
-                        <span class="visually-hidden">(current)</span>
+                    {% set active = (controllers['homepage'] == controller ? 'active' : '') %}
+                    <a class="nav-link {{ active }}" href="{{ path('homepage') }}">Accueil
+                        {{ active ? '<span class="visually-hidden">(current)</span>' : '' }}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="{{ path('index') }}">Actualité</a>
+                    {% set active = (controllers['index'] == controller ? 'active' : '') %}
+                    <a class="nav-link {{ active }}" href="{{ path('index') }}">Articles
+                        {{ active ? '<span class="visually-hidden">(current)</span>' : '' }}
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Artciles &amp; Tutoriels</a>
+                    {% set active = (controllers['faq'] == controller ? 'active' : '') %}
+                    <a class="nav-link {{ active }}" href="{{ path('faq') }}">F.A.Q.
+                        {{ active ? '<span class="visually-hidden">(current)</span>' : '' }}
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Forum</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Nos tarifs</a>
+                    {% set active = (controllers['prices'] == controller ? 'active' : '') %}
+                    <a class="nav-link {{ active }}" href="{{ path('prices') }}">Nos tarifs
+                        {{ active ? '<span class="visually-hidden">(current)</span>' : '' }}
+                    </a>
                 </li>
             </ul>
             <ul>
                 <li class="nav-item d-flex">
-                    <a class="nav-link" href="#">Connexion</a>
+                    {% set active = (controllers['login'] == controller ? 'active' : '') %}
+                    <a class="nav-link {{ active }}" href="#">Connexion
+                        {{ active ? '<span class="visually-hidden">(current)</span>' : '' }}
+                    </a>
                 </li>
             </ul>
         </div>
