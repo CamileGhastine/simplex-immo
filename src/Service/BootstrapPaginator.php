@@ -64,13 +64,13 @@ class BootstrapPaginator implements PaginatorInterface
         extract($parameters);
 
         $id = isset($id) ? $id : null ;
-        $this->numberOfResults = count($repository->$action($id));
+        $this->numberOfResults = count($repository->$action(null, null, $id));
         $maxResultsPerPage = $maxResultsPerPage ?: self:: MAX_RESULT_PER_PAGE;
         $this->numberOfPages = (int)ceil($this->numberOfResults / $maxResultsPerPage);
         $page = $page > 0 ? $page : 1;
         $this->page = $page > $this->numberOfPages ? $this->numberOfPages : $page;
 
-        $this->results = $repository->$action($id, $maxResultsPerPage, ($this->page - 1) * $maxResultsPerPage);
+        $this->results = $repository->$action($maxResultsPerPage, ($this->page - 1) * $maxResultsPerPage, $id);
     }
 
     /**
