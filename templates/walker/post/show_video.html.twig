@@ -1,5 +1,8 @@
 <div class="row text-center">
-    {% for x in 1..3 %}
-        <div class="my-2"><span class="badge rounded-pill bg-secondary">video{{ x }}</span></div>
+    {% for video in post.videos %}
+        <div class="my-2"><span class="badge rounded-pill bg-secondary">Vidéo{{ loop.index }}</span></div>
     {% endfor %}
 </div>
+{#<iframe width="560" height="315" src="{{ video.url }}" title="YouTube video player" frameborder="0"#}
+{#        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"#}
+{#        allowfullscreen></iframe>#}

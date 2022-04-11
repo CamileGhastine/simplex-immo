@@ -33,10 +33,14 @@ class Post
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Image::class, orphanRemoval: true)]
     private $images;
 
+    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Video::class, orphanRemoval: true)]
+    private $videos;
+
     public function __construct() {
         $this->media = new ArrayCollection();
         $this->medias = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->videos = new ArrayCollection();
     }
 
     public function getId(): ?int {
@@ -119,6 +123,36 @@ class Post
             // set the owning side to null (unless already changed)
             if ($image->getPost() === $this) {
                 $image->setPost(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Video>
+     */
+    public function getVideos(): Collection
+    {
+        return $this->videos;
+    }
+
+    public function addVideo(Video $video): self
+    {
+        if (!$this->videos->contains($video)) {
+            $this->videos[] = $video;
+            $video->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVideo(Video $video): self
+    {
+        if ($this->videos->removeElement($video)) {
+            // set the owning side to null (unless already changed)
+            if ($video->getPost() === $this) {
+                $video->setPost(null);
             }
         }
 

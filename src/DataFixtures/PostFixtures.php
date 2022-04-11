@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Image;
 use App\Entity\Media;
 use App\Entity\Post;
+use App\Entity\Video;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -61,6 +62,27 @@ class PostFixtures extends Fixture
                 $post->addImage($image);
 
                 $manager->persist($image);
+
+                //  Creation of fake videos
+                $videos = [
+                    'https://www.youtube.com/embed/cWhIjM8fjr0',
+                    'https://www.youtube.com/embed/kvNxlyNFfOk',
+                    'https://www.youtube.com/embed/9itOLVl3dLA'
+                ];
+            }
+            for ($j = 0; $j < rand(0, 2); $j++) {
+
+                if ($i % 5 === 0)
+                    continue;
+
+                $video = new Video();
+
+                $video->setTitle(substr($faker->sentence(3, true), 0, 29))
+                    ->setUrl($videos[rand(0, 2)]);
+
+                $post->addVideo($video);
+
+                $manager->persist($video);
             }
 
             $post->setCategory($categories[rand(0, count($categories) - 1)]);
