@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Simplex-Immo: Accueil{% endblock %}
+{% block title %}Simplex-Immo: Articles{% endblock %}
 
 {% block body %}
     <div class="row">
@@ -11,7 +11,7 @@
         <div class="col-12">
             <div class="row">
                 <div class="col-6 category-badges">
-                    {{ include('walker/post/categories.html.twig') }}
+                    {{ include('walker/post/index_categories.html.twig') }}
                 </div>
                 <div class="col-6 d-flex justify-content-end">
                     {{ renderPagination | raw }}
@@ -20,7 +20,7 @@
         </div>
 
         {% for  post in posts %}
-            {{ include('walker/post/post.html.twig') }}
+            {{ include('walker/post/index_post.html.twig') }}
         {% endfor %}
 
         <div class="col-12 d-flex justify-content-center mb-3">

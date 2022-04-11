@@ -13,8 +13,8 @@
                     <div class="col-10 card-title d-flex align-items-center ps-2">{{ post.title }}</div>
 
                     <div class="col-12 text-end">
-                        {{ post.createdAt|date("m/d/Y") == post.updatedAt|date("m/d/Y")  ?
-                        post.createdAt|date("m/d/Y") : 'mise à jour le ' ~ post.updatedAt|date("m/d/Y") }}
+                        {{ post.createdAt|date("d/m/Y") == post.updatedAt|date("d/m/Y")  ?
+                        post.createdAt|date("d/m/Y") : 'mise à jour le ' ~ post.updatedAt|date("d/m/Y") }}
                     </div>
                 </div>
             </div>

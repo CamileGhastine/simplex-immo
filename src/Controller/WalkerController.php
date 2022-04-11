@@ -21,7 +21,7 @@ class WalkerController extends AbstractController
      */
     #[Route('/', name: 'homepage')]
     public function homepage(): Response {
-        return $this->render('walker/homepage.html.twig', [
+        return $this->render('walker/homepage/homepage.html.twig', [
             'posts' => $this->postRepository->findAllPostsWithPoster(9, 0)
         ]);
     }
@@ -49,7 +49,6 @@ class WalkerController extends AbstractController
      * @param Request $request
      * @param CategoryRepository $categoryRepository
      * @param int $id
-     *
      * @return Response
      */
     #[Route('/post/category/{id<[0-9]+>}', name: 'index_by_category', methods: ["GET"])]
@@ -68,11 +67,24 @@ class WalkerController extends AbstractController
     }
 
     /**
+     * @param Request $request
+     * @param CategoryRepository $categoryRepository
+     * @param int $id
+     * @return Response
+     */
+    #[Route('/post/{id<[0-9]+>}', name: 'show', methods: ["GET"])]
+    public function show(int $id): Response {
+        return $this->render('walker/post/show.html.twig', [
+            'post' => $this->postRepository->find($id)
+        ]);
+    }
+
+    /**
      * @return Response
      */
     #[Route('/faq', name: 'faq')]
     public function faq(): Response {
-        return $this->render('walker/faq.html.twig');
+        return $this->render('walker/faq/faq.html.twig');
     }
 
     /**
@@ -80,6 +92,6 @@ class WalkerController extends AbstractController
      */
     #[Route('/prices', name: 'prices')]
     public function prices(): Response {
-        return $this->render('walker/prices.html.twig');
+        return $this->render('walker/faq/prices.html.twig');
     }
 }
