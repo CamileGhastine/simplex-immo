@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Simplex-Immo : Enregistrement{% endblock %}
+
+{% block body %}
+    <div class="toShort">
+        <h1 class="mb-3 font-weight-normal simplexHomepage text-center">Enregistrement</h1>
+
+        {{ form_start(registrationForm) }}
+
+        <div class="row my-3">
+            <div class="col-2 ">
+                {{ form_label(registrationForm.email, 'Courriel') }}
+            </div>
+            <div class="col-10">
+                {{ form_widget(registrationForm.email) }}
+            </div>
+        </div>
+
+        <div class="row my-3">
+            <div class="col-2 ">
+                {{ form_label(registrationForm.plainPassword,'Mot de passe') }}
+            </div>
+            <div class="col-10">
+                {{ form_widget(registrationForm.plainPassword) }}
+            </div>
+        </div>
+
+        <div class="row my-3">
+            <div class="col-12">
+                {{ form_label(registrationForm.agreeTerms, "Acceptez les termes d'utilisation") }}
+                {{ form_widget(registrationForm.agreeTerms) }}
+            </div>
+        </div>
+
+        <div class="row my-3">
+            <div class="offset-2 col-10">
+                <button class="btn btn-lg btn-warning" type="submit">Enregistrement</button>
+            </div>
+        </div>
+
+        {{ form_end(registrationForm) }}
+    </div>
+{% endblock %}

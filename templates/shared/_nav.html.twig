@@ -14,7 +14,7 @@
             'indexByCategory' : 'App\\Controller\\WalkerController::indexByCategory',
             'faq' : 'App\\Controller\\WalkerController::faq',
             'prices' : 'App\\Controller\\WalkerController::prices',
-            'login' : 'App\\Controller\\WalkerController::login',
+            'login' : 'App\\Controller\\SecurityController::login',
         } %}
         {% set controller = app.request.attributes.get('_controller') %}
 
@@ -47,10 +47,14 @@
             </ul>
             <ul>
                 <li class="nav-item d-flex">
-                    {% set active = (controllers['login'] == controller ? 'active' : '') %}
-                    <a class="nav-link {{ active }}" href="#">Connexion
-                        {{ active ? '<span class="visually-hidden">(current)</span>' : '' }}
-                    </a>
+                    {% if app.user %}
+                    <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+                    {% else %}
+                        {% set active = (controllers['login'] == controller ? 'active' : '') %}
+                        <a class="nav-link {{ active }}" href="{{ path('app_login') }}">Connexion
+                            {{ active ? '<span class="visually-hidden">(current)</span>' : '' }}
+                        </a>
+                    {% endif %}
                 </li>
             </ul>
         </div>
