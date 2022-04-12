@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\Paginator;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
