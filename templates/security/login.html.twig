@@ -5,17 +5,22 @@
 {% block body %}
     <div class="toShort">
         <form method="post">
+            <h1 class="mb-3 font-weight-normal simplexHomepage text-center">Connexion</h1>
+
             {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                <div class="offset-2  col-10 alert alert-danger text-center">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
 
+            {% for message in app.flashes('success') %}
+                <div class="offset-2  col-10 alert alert-success text-center" role="alert">{{ message }}</div>
+            {% endfor %}
+
             {% if app.user %}
-                <div class="mb-3">
-                    You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                <div class="offset-2  col-10 mb-3 text-center">
+                    Vous êtes déjà connecté avec le courriel {{ app.user.username }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
                 </div>
             {% endif %}
 
-            <h1 class="mb-3 font-weight-normal simplexHomepage text-center">Connexion</h1>
             <div class="row my-3">
                 <div class="col-2 ">
                     <label for="inputEmail">Courriel</label>
@@ -25,6 +30,7 @@
                            class="form-control" autocomplete="email" required autofocus>
                 </div>
             </div>
+
             <div class="row my-3">
                 <div class="col-2">
                     <label for="inputPassword">Mot de passe</label>
@@ -55,7 +61,7 @@
                    <a href="">Mot de passe oublié</a>
                 </div>
                 <div class="offset-2 col-10 mt-3">
-                    Vous n'avez pas de compte, <a href="">Enregistrez-vous</a>
+                    Vous n'avez pas de compte, <a href="{{ path('app_register') }}">Enregistrez-vous</a>
                 </div>
             </div>
         </form>
