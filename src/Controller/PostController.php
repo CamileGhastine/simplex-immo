@@ -30,7 +30,6 @@ class PostController extends AbstractController
                 'maxResultsPerPage' => 10
             ]),
             'renderPagination' => $this->paginator->render(),
-            'categories' => $categoryRepository->findAll(),
         ]);
     }
 
@@ -51,7 +50,6 @@ class PostController extends AbstractController
                 'id' => $id
             ]),
             'renderPagination' => $this->paginator->render(),
-            'categories' => $categoryRepository->findAll(),
         ]);
     }
 

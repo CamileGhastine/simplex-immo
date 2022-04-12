@@ -6,6 +6,7 @@ use App\Entity\Faq;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 
 class FaqFixtures extends Fixture
 {
@@ -14,6 +15,9 @@ class FaqFixtures extends Fixture
      * @param ObjectManager $manager
      */
     public function load(ObjectManager $manager) {
+        $cache = new FilesystemAdapter();
+        $cache->clear();
+
         $faker = Factory::create('fr_FR');
 
         // Creation of fake articles

@@ -9,15 +9,19 @@ use App\Entity\Video;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 
 class PostFixtures extends Fixture
 {
-    const NB_POSTS = 21;
+    const NB_POSTS = 100;
 
     /**
      * @param ObjectManager $manager
      */
     public function load(ObjectManager $manager) {
+        $cache = new FilesystemAdapter();
+        $cache->clear();
+
         $faker = Factory::create('fr_FR');
 
         //Creation of fake categories
