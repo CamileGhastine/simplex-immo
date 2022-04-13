@@ -25,8 +25,8 @@ class UserFixtures extends Fixture
         $faker = Factory::create('fr_FR');
 
         $user = new User();
-        $user->setEmail('camile@camile.fr')
-            ->setPassword($this->hasher->hashPassword($user, 'camile'));
+        $user->setEmail('user@user.fr')
+            ->setPassword($this->hasher->hashPassword($user, 'password'));
 
         $manager->persist($user);
 
