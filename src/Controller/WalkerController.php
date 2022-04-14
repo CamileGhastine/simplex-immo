@@ -36,7 +36,7 @@ class WalkerController extends AbstractController
     #[Route('/faq', name: 'faq')]
     public function faq(FaqRepository $faqRepository): Response
     {
-        $faq = $this->cache->get('homepage', function () use ($faqRepository) {
+        $faq = $this->cache->get('faq', function () use ($faqRepository) {
             return $faqRepository->findAll();
         });
 
