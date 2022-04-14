@@ -42,15 +42,23 @@ class BootstrapPaginator implements PaginatorInterface
         }
 
         $disabled = 1 === $this->page ? 'disabled' : null;
-        $render = '<ul class="pagination pagination-sm"><li class="page-item '.$disabled.'"><a class="page-link" href="?page=1">&laquo;</a></li>';
+        $render = '<ul class="pagination pagination-sm">
+                        <li class="page-item ' . $disabled . '">
+                            <a class="page-link" href="?page=1">&laquo;</a>
+                        </li>';
 
         for ($i = $this->firstpage; $i <= $this->lastpage; ++$i) {
             $active = $i === $this->page ? 'active' : null;
-            $render .= '<li class="page-item '.$active.'"><a class="page-link" href="?page='.$i.'"> '.$i.'</a></li>';
+            $render .= '<li class="page-item ' . $active . '">
+                            <a class="page-link" href="?page=' . $i . '"> ' . $i . '</a>
+                        </li>';
         }
 
         $disabled = $this->page === $this->numberOfPages ? 'disabled' : null;
-        $render .= '<li class="page-item '.$disabled.'"><a class="page-link" href="?page='.$this->numberOfPages.'">&raquo;</a></li></ul >';
+        $render .= '<li class="page-item ' . $disabled . '">
+                        <a class="page-link" href="?page=' . $this->numberOfPages . '">&raquo;</a>
+                    </li>
+                </ul >';
 
         return $render;
     }
@@ -64,13 +72,13 @@ class BootstrapPaginator implements PaginatorInterface
         extract($parameters);
 
         $id = isset($id) ? $id : null;
-        $this->numberOfResults = count($repository->$action(null, null, $id));
+        $this->numberOfResults = count($repository->$action($id, null, null));
         $maxResultsPerPage = $maxResultsPerPage ?: self::MAX_RESULT_PER_PAGE;
-        $this->numberOfPages = (int) ceil($this->numberOfResults / $maxResultsPerPage);
+        $this->numberOfPages = (int)ceil($this->numberOfResults / $maxResultsPerPage);
         $page = $page > 0 ? $page : 1;
         $this->page = $page > $this->numberOfPages ? $this->numberOfPages : $page;
 
-        $this->results = $repository->$action($maxResultsPerPage, ($this->page - 1) * $maxResultsPerPage, $id);
+        $this->results = $repository->$action($id, $maxResultsPerPage, ($this->page - 1) * $maxResultsPerPage);
     }
 
     /**
@@ -84,12 +92,12 @@ class BootstrapPaginator implements PaginatorInterface
 
         $this->firstpage = $this->page <= ($numberPagesPerRender / 2)
             ? 1
-            : $this->page - (int) ($numberPagesPerRender / 2) + (int) !($numberPagesPerRender % 2);
-        $this->firstpage = $this->page > ($this->numberOfPages - (int) ($numberPagesPerRender / 2))
+            : $this->page - (int)($numberPagesPerRender / 2) + (int)!($numberPagesPerRender % 2);
+        $this->firstpage = $this->page > ($this->numberOfPages - (int)($numberPagesPerRender / 2))
             ? $this->numberOfPages - $numberPagesPerRender + 1
             : $this->firstpage;
 
-        $this->lastpage = $this->page > $this->numberOfPages - (int) ($numberPagesPerRender / 2)
+        $this->lastpage = $this->page > $this->numberOfPages - (int)($numberPagesPerRender / 2)
             ? $this->numberOfPages
             : $this->firstpage + $numberPagesPerRender - 1;
     }

@@ -13,12 +13,15 @@ use Symfony\Contracts\Cache\CacheInterface;
 
 class PostController extends AbstractController
 {
-    public function __construct(private PostRepository $postRepository, private PaginatorInterface $paginator, private CacheInterface $cache)
-    {
+    public function __construct(
+        private PostRepository $postRepository,
+        private PaginatorInterface $paginator,
+        private CacheInterface $cache
+    ) {
     }
 
     /**
-     * @param Request            $request
+     * @param Request $request
      * @param CategoryRepository $categoryRepository
      *
      * @return Response
@@ -29,9 +32,9 @@ class PostController extends AbstractController
     #[Route('/post/category/{id<[0-9]+>}', name: 'index_by_category', methods: ['GET'])]
     public function index(Request $request, int $id = null): Response
     {
-        $page = (int) $request->query->get('page') > 0 ? (int) $request->query->get('page') : 1;
+        $page = (int)$request->query->get('page') > 0 ? (int)$request->query->get('page') : 1;
 
-        $cachePosts = $this->cache->get('post-index'.$page.'-'.$id, function () use ($page, $id) {
+        $cachePosts = $this->cache->get('post-index' . $page . '-' . $id, function () use ($page, $id) {
             $action = $id ? 'findAllPostsByCategoryWithPoster' : 'findAllPostsWithPoster';
 
             $posts = $this->paginator->paginate($this->postRepository, $action, [
@@ -55,16 +58,16 @@ class PostController extends AbstractController
     }
 
     /**
-     * @param Request            $request
+     * @param Request $request
      * @param CategoryRepository $categoryRepository
-     * @param int                $id
+     * @param int $id
      *
      * @return Response
      */
     #[Route('/post/{id<[0-9]+>}', name: 'show', methods: ['GET'])]
     public function show(int $id): Response
     {
-        $post = $this->cache->get('post-show'.$id, function () use ($id) {
+        $post = $this->cache->get('post-show' . $id, function () use ($id) {
             return $this->postRepository->findOneWithCategoryImagesVideos($id);
         });
 

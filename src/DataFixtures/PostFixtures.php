@@ -58,7 +58,7 @@ class PostFixtures extends Fixture
                 $image = new Image();
 
                 $image->setTitle(substr($faker->sentence(3, true), 0, 29))
-                    ->setSrc('https://picsum.photos/300/3'.$j.rand(0, 9))
+                    ->setSrc('https://picsum.photos/300/3' . $j . rand(0, 9))
                     ->setPoster(false);
                 if (0 === $j) {
                     $image->setPoster(true);

@@ -47,7 +47,7 @@ class PostRepository extends ServiceEntityRepository
      *
      * @return float|int|mixed|string
      */
-    public function findAllPostsByCategoryWithPoster($maxResult = null, $firstResult = null, int $id)
+    public function findAllPostsByCategoryWithPoster(?int $id, $maxResult = null, $firstResult = null)
     {
         return $this->createQueryBuilder('post')
             ->addSelect('image')

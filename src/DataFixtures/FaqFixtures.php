@@ -26,7 +26,7 @@ class FaqFixtures extends Fixture
 
             $date = $faker->dateTimebetween('-100 days');
 
-            $faq->setQuestion(substr($faker->sentence(3, true), 0, -1).' ?')
+            $faq->setQuestion(substr($faker->sentence(3, true), 0, -1) . ' ?')
                 ->setAnswer(implode("\n", $faker->sentences(100)))
                 ->setCreatedAt($date)
                 ->setUpdatedAt($date);
