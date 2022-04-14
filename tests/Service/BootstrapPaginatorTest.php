@@ -34,7 +34,6 @@ class BootstrapPaginatorTest extends WebTestCase
         $this->paginator = new BootstrapPaginator();
     }
 
-
     public function testPaginateReturnArrayIndex()
     {
         $posts = $this->paginator->paginate($this->repository, 'findAllPostsWithPoster', $this->parameters);
@@ -99,7 +98,7 @@ class BootstrapPaginatorTest extends WebTestCase
         $posts = $this->paginator->paginate($this->repository, 'findAllPostsWithPoster', $this->parameters);
 
         foreach ($posts as $key => $post) {
-            if($key === 0) {
+            if ($key === 0) {
                 $previousPost = $post;
                 continue;
             }
@@ -119,7 +118,7 @@ class BootstrapPaginatorTest extends WebTestCase
         $posts = $this->paginator->paginate($this->repository, 'findAllPostsByCategoryWithPoster', $this->parameters);
 
         foreach ($posts as $key => $post) {
-            if($key === 0) {
+            if ($key === 0) {
                 $previousPost = $post;
                 continue;
             }
@@ -148,6 +147,40 @@ class BootstrapPaginatorTest extends WebTestCase
         $this->assertEquals($numberPagePerRender + 2, substr_count($render, '<a class="page-link"'));
     }
 
+    public function testActivePageInTheCenterOfThePagination()
+    {
+        $this->parameters['page'] = 7;
 
 
+        $this->paginator->paginate($this->repository, 'findAllPostsWithPoster', $this->parameters);
+        $render = $this->paginator->render();
+        $renderExplode = explode('a class="page-link" href="?page=', $render);
+        $pages = [];
+
+        foreach ($renderExplode as $key => $page) {
+            if ($key < 2 || $key > $this->parameters['page'] - 1)
+                continue;
+            $pages[] = substr($page, 0, 1);
+        }
+
+        $this->assertTrue($pages[2] === "7");
+    }
+
+    public function testActivePageInTheCenterOfThePaginationWithOddNumberPagePerRender()
+    {
+        $this->parameters['page'] = 7;
+
+        $this->paginator->paginate($this->repository, 'findAllPostsWithPoster', $this->parameters);
+        $render = $this->paginator->render(8);
+        $renderExplode = explode('a class="page-link" href="?page=', $render);
+        $pages = [];
+
+        foreach ($renderExplode as $key => $page) {
+            if ($key < 2 || $key > 9)
+                continue;
+            $pages[] = substr($page, 0, 1);
+        }
+
+        $this->assertTrue($pages[3] === "7");
+    }
 }
