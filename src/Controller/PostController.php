@@ -28,10 +28,11 @@ class PostController extends AbstractController
      *
      * @throws \Psr\Cache\InvalidArgumentException
      */
-    #[Route('/post', name: 'index', methods: ['GET'])]
-    #[Route('/post/category/{id<[0-9]+>}', name: 'index_by_category', methods: ['GET'])]
+    #[Route('/post', name: 'index', methods: ['GET'])] // return paginated posts
+    #[Route('/post/category/{id<[0-9]+>}', name: 'index_by_category', methods: ['GET'])] //return Paginated posts by category
     public function index(Request $request, int $id = null): Response
     {
+        // Secure $page from $_GET
         $page = (int)$request->query->get('page') > 0 ? (int)$request->query->get('page') : 1;
 
         $cachePosts = $this->cache->get('post-index' . $page . '-' . $id, function () use ($page, $id) {

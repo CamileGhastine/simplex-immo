@@ -17,8 +17,11 @@ class BootstrapPaginator implements PaginatorInterface
     private int $lastpage;
 
     /**
-     * @param int $id
-     * @param int $page
+     * Return posts paginated
+     * @param ServiceEntityRepository $repository
+     * @param string $action
+     * @param array $parameters
+     * @return array
      */
     public function paginate(ServiceEntityRepository $repository, string $action, array $parameters): array
     {
@@ -28,10 +31,10 @@ class BootstrapPaginator implements PaginatorInterface
     }
 
     /**
+     * Return an HTML pagination
      * @param int $id
      * @param int $page
-     *
-     * @return string
+     *@return string
      */
     public function render(int $numberPagesPerRender = self::NUMBER_PAGES_PER_RENDER): ?string
     {
@@ -77,7 +80,7 @@ class BootstrapPaginator implements PaginatorInterface
         $this->numberOfPages = (int)ceil($this->numberOfResults / $maxResultsPerPage);
         $page = $page > 0 ? $page : 1;
         $this->page = $page > $this->numberOfPages ? $this->numberOfPages : $page;
-dump($id, $maxResultsPerPage, $this->page);
+
         $this->results = $repository->$action($id, $maxResultsPerPage, ($this->page - 1) * $maxResultsPerPage);
     }
 
