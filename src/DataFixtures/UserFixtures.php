@@ -6,21 +6,20 @@ use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Contracts\Cache\CacheInterface;
 
 class UserFixtures extends Fixture
 {
 
-    public function __construct(private UserPasswordHasherInterface  $hasher) {
+    public function __construct(private UserPasswordHasherInterface  $hasher, private cacheInterface $cache) {
     }
 
     /**
      * @param ObjectManager $manager
      */
     public function load(ObjectManager $manager) {
-        $cache = new FilesystemAdapter();
-        $cache->clear();
+        $this->cache->clear();
 
         $faker = Factory::create('fr_FR');
 

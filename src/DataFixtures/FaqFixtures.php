@@ -6,17 +6,19 @@ use App\Entity\Faq;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Contracts\Cache\CacheInterface;
 
 class FaqFixtures extends Fixture
 {
+
+    public function __construct(private CacheInterface $cache) {
+    }
 
     /**
      * @param ObjectManager $manager
      */
     public function load(ObjectManager $manager) {
-        $cache = new FilesystemAdapter();
-        $cache->clear();
+        $this->cache->clear();
 
         $faker = Factory::create('fr_FR');
 
