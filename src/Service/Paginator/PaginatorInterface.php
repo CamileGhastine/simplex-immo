@@ -7,12 +7,16 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 interface PaginatorInterface
 {
     /**
-     * @param int $page
+     * @param ServiceEntityRepository $repository
+     * @param string $action
+     * @param array $parameters
+     * @return array
      */
     public function paginate(ServiceEntityRepository $repository, string $action, array $parameters): array;
 
     /**
-     * @return string
+     * @param int $numberPagesPerRender
+     * @return string|null
      */
     public function render(int $numberPagesPerRender): ?string;
 }
