@@ -73,11 +73,11 @@ class BootstrapPaginator implements PaginatorInterface
 
         $id = isset($id) ? $id : null;
         $this->numberOfResults = count($repository->$action($id, null, null));
-        $maxResultsPerPage = $maxResultsPerPage ?: self::MAX_RESULT_PER_PAGE;
+        $maxResultsPerPage = isset($maxResultsPerPage) ? $naxResultsPerPage: self::MAX_RESULT_PER_PAGE;
         $this->numberOfPages = (int)ceil($this->numberOfResults / $maxResultsPerPage);
         $page = $page > 0 ? $page : 1;
         $this->page = $page > $this->numberOfPages ? $this->numberOfPages : $page;
-
+dump($id, $maxResultsPerPage, $this->page);
         $this->results = $repository->$action($id, $maxResultsPerPage, ($this->page - 1) * $maxResultsPerPage);
     }
 

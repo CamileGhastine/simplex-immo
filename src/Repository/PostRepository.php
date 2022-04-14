@@ -27,7 +27,7 @@ class PostRepository extends ServiceEntityRepository
      *
      * @return int|mixed|string
      */
-    public function findAllPostsWithPoster($maxResult = null, $firstResult = null)
+    public function findAllPostsWithPoster(?int $id = null, int $maxResult = null, int $firstResult = null): array
     {
         return $this->createQueryBuilder('post')
             ->addSelect('image')
@@ -47,7 +47,7 @@ class PostRepository extends ServiceEntityRepository
      *
      * @return float|int|mixed|string
      */
-    public function findAllPostsByCategoryWithPoster(?int $id, $maxResult = null, $firstResult = null)
+    public function findAllPostsByCategoryWithPoster(?int $id, $maxResult = null, $firstResult = null): array
     {
         return $this->createQueryBuilder('post')
             ->addSelect('image')

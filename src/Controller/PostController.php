@@ -39,7 +39,6 @@ class PostController extends AbstractController
 
             $posts = $this->paginator->paginate($this->postRepository, $action, [
                 'page' => $page,
-                'maxResultsPerPage' => 10,
                 'id' => $id,
             ]);
 
