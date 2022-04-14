@@ -11,14 +11,12 @@ use Symfony\Contracts\Cache\CacheInterface;
 
 class UserFixtures extends Fixture
 {
-
-    public function __construct(private UserPasswordHasherInterface  $hasher, private cacheInterface $cache) {
+    public function __construct(private UserPasswordHasherInterface $hasher, private cacheInterface $cache)
+    {
     }
 
-    /**
-     * @param ObjectManager $manager
-     */
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager)
+    {
         $this->cache->clear();
 
         $faker = Factory::create('fr_FR');

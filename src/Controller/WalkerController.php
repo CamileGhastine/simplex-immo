@@ -11,20 +11,22 @@ use Symfony\Contracts\Cache\CacheInterface;
 
 class WalkerController extends AbstractController
 {
-    public function __construct(private CacheInterface $cache) {
+    public function __construct(private CacheInterface $cache)
+    {
     }
 
     /**
      * @return Response
      */
     #[Route('/', name: 'homepage')]
-    public function homepage(PostRepository $postRepository): Response {
+    public function homepage(PostRepository $postRepository): Response
+    {
         $posts = $this->cache->get('homepage', function () use ($postRepository) {
             return $postRepository->findAllPostsWithPoster(9, 0);
         });
 
         return $this->render('walker/homepage/homepage.html.twig', [
-            'posts' => $posts
+            'posts' => $posts,
         ]);
     }
 
@@ -32,13 +34,14 @@ class WalkerController extends AbstractController
      * @return Response
      */
     #[Route('/faq', name: 'faq')]
-    public function faq(FaqRepository $faqRepository): Response {
+    public function faq(FaqRepository $faqRepository): Response
+    {
         $faq = $this->cache->get('homepage', function () use ($faqRepository) {
             return $faqRepository->findAll();
         });
 
         return $this->render('walker/faq/faq.html.twig', [
-            'faqs' => $faq
+            'faqs' => $faq,
         ]);
     }
 
@@ -46,7 +49,8 @@ class WalkerController extends AbstractController
      * @return Response
      */
     #[Route('/prices', name: 'prices')]
-    public function prices(): Response {
+    public function prices(): Response
+    {
         return $this->render('walker/prices/prices.html.twig');
     }
 }

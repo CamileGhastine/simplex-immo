@@ -16,7 +16,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CategoryRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry) {
+    public function __construct(ManagerRegistry $registry)
+    {
         parent::__construct($registry, Category::class);
     }
 
@@ -24,7 +25,8 @@ class CategoryRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Category $entity, bool $flush = true): void {
+    public function add(Category $entity, bool $flush = true): void
+    {
         $this->_em->persist($entity);
         if ($flush) {
             $this->_em->flush();
@@ -35,7 +37,8 @@ class CategoryRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Category $entity, bool $flush = true): void {
+    public function remove(Category $entity, bool $flush = true): void
+    {
         $this->_em->remove($entity);
         if ($flush) {
             $this->_em->flush();

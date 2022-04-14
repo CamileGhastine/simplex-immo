@@ -13,22 +13,21 @@ use Symfony\Contracts\Cache\CacheInterface;
 
 class PostFixtures extends Fixture
 {
-    const NB_POSTS = 100;
+    public const NB_POSTS = 100;
 
-    public function __construct(private CacheInterface $cache) {
+    public function __construct(private CacheInterface $cache)
+    {
     }
 
-    /**
-     * @param ObjectManager $manager
-     */
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager)
+    {
         $this->cache->clear();
 
         $faker = Factory::create('fr_FR');
 
         //Creation of fake categories
         $categories = [];
-        $titles = ["Actualité", "Reportage", "Tutoriel"];
+        $titles = ['Actualité', 'Reportage', 'Tutoriel'];
 
         foreach ($titles as $title) {
             $category = new Category();
@@ -51,36 +50,35 @@ class PostFixtures extends Fixture
                 ->setUpdatedAt($date);
 
             //  Creation of fake images
-            for ($j = 0; $j < rand(0, 3); $j++) {
-
-                if ($i % 5 === 0)
+            for ($j = 0; $j < rand(0, 3); ++$j) {
+                if (0 === $i % 5) {
                     continue;
+                }
 
                 $image = new Image();
 
                 $image->setTitle(substr($faker->sentence(3, true), 0, 29))
-                    ->setSrc("https://picsum.photos/300/3" . $j . rand(0, 9))
+                    ->setSrc('https://picsum.photos/300/3'.$j.rand(0, 9))
                     ->setPoster(false);
-                if ($j === 0)
+                if (0 === $j) {
                     $image->setPoster(true);
+                }
 
                 $post->addImage($image);
 
                 $manager->persist($image);
-
-
             }
 
             //  Creation of fake videos
             $videos = [
                 'https://www.youtube.com/embed/cWhIjM8fjr0',
                 'https://www.youtube.com/embed/kvNxlyNFfOk',
-                'https://www.youtube.com/embed/9itOLVl3dLA'
+                'https://www.youtube.com/embed/9itOLVl3dLA',
             ];
-            for ($j = 0; $j < rand(0, 2); $j++) {
-
-                if ($i % 5 === 0)
+            for ($j = 0; $j < rand(0, 2); ++$j) {
+                if (0 === $i % 5) {
                     continue;
+                }
 
                 $video = new Video();
 

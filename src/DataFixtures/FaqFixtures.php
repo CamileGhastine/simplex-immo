@@ -10,14 +10,12 @@ use Symfony\Contracts\Cache\CacheInterface;
 
 class FaqFixtures extends Fixture
 {
-
-    public function __construct(private CacheInterface $cache) {
+    public function __construct(private CacheInterface $cache)
+    {
     }
 
-    /**
-     * @param ObjectManager $manager
-     */
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager)
+    {
         $this->cache->clear();
 
         $faker = Factory::create('fr_FR');
@@ -28,7 +26,7 @@ class FaqFixtures extends Fixture
 
             $date = $faker->dateTimebetween('-100 days');
 
-            $faq->setQuestion(substr($faker->sentence(3, true), 0, -1) . ' ?')
+            $faq->setQuestion(substr($faker->sentence(3, true), 0, -1).' ?')
                 ->setAnswer(implode("\n", $faker->sentences(100)))
                 ->setCreatedAt($date)
                 ->setUpdatedAt($date);
