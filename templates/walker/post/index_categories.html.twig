@@ -1,11 +1,14 @@
-{% set btn_color = (app.request.requestUri == '/post') ? 'btn-warning' : 'bg-secondary' %}
+{% set categories = categoryExt.getCategories %}
+{% set url = (app.request.requestUri|split('?'))[0] %}
+
+{% set btn_color = (url == '/post') ? 'btn-warning' : 'bg-secondary' %}
 <a href="{{ path('index') }}">
     <span class="badge {{ btn_color }}">Tous les articles</span>
 </a>
 
-{% set categoryId = app.request.requestUri|replace({'/post/category/' : ''}) %}
+{% set categoryId = url|replace({'/post/category/' : ''}) %}
 {% for category in categories %}
-    {% set btn_color =  (categoryId == category.id)  ? 'btn-warning' : 'btn-secondary'  %}
+    {% set btn_color =  (categoryId == category.id)  ? 'btn-warning' : 'btn-secondary' %}
     <a href="{{ path('index_by_category', {'id' : category.id}) }}">
         <span class="badge {{ btn_color }}">{{ category.title }}</span>
     </a>

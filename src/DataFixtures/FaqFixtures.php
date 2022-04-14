@@ -6,14 +6,18 @@ use App\Entity\Faq;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
+use Symfony\Contracts\Cache\CacheInterface;
 
 class FaqFixtures extends Fixture
 {
+    public function __construct(private CacheInterface $cache)
+    {
+    }
 
-    /**
-     * @param ObjectManager $manager
-     */
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager)
+    {
+        $this->cache->clear();
+
         $faker = Factory::create('fr_FR');
 
         // Creation of fake articles

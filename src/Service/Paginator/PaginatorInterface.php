@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\Paginator;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 interface PaginatorInterface
 {
     /**
-     * @param string $action
      * @param int $page
-     * @return array
      */
     public function paginate(ServiceEntityRepository $repository, string $action, array $parameters): array;
 
