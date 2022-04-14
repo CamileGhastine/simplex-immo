@@ -7,6 +7,7 @@ use App\Service\Paginator\BootstrapPaginator;
 use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
 use Liip\TestFixturesBundle\Services\DatabaseTools\AbstractDatabaseTool;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use function PHPUnit\Framework\assertTrue;
 
 // ⚠️To play this tests, set the constant NB_POSTS = 100 in App\DataFixtures\PostFixtures;
 
@@ -31,6 +32,23 @@ class BootstrapPaginatorTest extends WebTestCase
             'id' => null
         ];
         $this->paginator = new BootstrapPaginator();
+    }
+
+
+    public function testPaginateReturnArrayIndex()
+    {
+        $posts = $this->paginator->paginate($this->repository, 'findAllPostsWithPoster', $this->parameters);
+
+        $this->assertIsArray($posts);
+    }
+
+    public function testPaginateReturnArrayIndexByCategory()
+    {
+        $this->parameters['id'] = 1;
+
+        $posts = $this->paginator->paginate($this->repository, 'findAllPostsByCategoryWithPoster', $this->parameters);
+
+        $this->assertIsArray($posts);
     }
 
 
@@ -111,4 +129,25 @@ class BootstrapPaginatorTest extends WebTestCase
             $previousPost = $post;
         }
     }
+
+    public function testNumberOfPageDisplayInRenderPaginationByDefault()
+    {
+        $this->paginator->paginate($this->repository, 'findAllPostsWithPoster', $this->parameters);
+        $render = $this->paginator->render();
+
+        $this->assertEquals(7, substr_count($render, '<a class="page-link"'));
+    }
+
+    public function testNumberOfPageDisplayInRenderPagination()
+    {
+        $numberPagePerRender = 3;
+
+        $this->paginator->paginate($this->repository, 'findAllPostsWithPoster', $this->parameters);
+        $render = $this->paginator->render($numberPagePerRender);
+
+        $this->assertEquals($numberPagePerRender + 2, substr_count($render, '<a class="page-link"'));
+    }
+
+
+
 }
