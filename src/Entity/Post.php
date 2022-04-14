@@ -36,52 +36,62 @@ class Post
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Video::class, orphanRemoval: true)]
     private $videos;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->media = new ArrayCollection();
         $this->medias = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->videos = new ArrayCollection();
     }
 
-    public function getId(): ?int {
+    public function getId(): ?int
+    {
         return $this->id;
     }
 
-    public function getTitle(): ?string {
+    public function getTitle(): ?string
+    {
         return $this->title;
     }
 
-    public function setTitle(string $title): self {
+    public function setTitle(string $title): self
+    {
         $this->title = $title;
 
         return $this;
     }
 
-    public function getContent(): ?string {
+    public function getContent(): ?string
+    {
         return $this->content;
     }
 
-    public function setContent(string $content): self {
+    public function setContent(string $content): self
+    {
         $this->content = $content;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface {
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self {
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface {
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self {
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
         $this->updatedAt = $updatedAt;
 
         return $this;

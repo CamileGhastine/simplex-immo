@@ -14,8 +14,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
-    {
+    public function register(
+        Request $request,
+        UserPasswordHasherInterface $userPasswordHasher,
+        EntityManagerInterface $entityManager
+    ): Response {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -23,7 +26,7 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
-            $userPasswordHasher->hashPassword(
+                $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
@@ -36,7 +39,10 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        $this->addFlash('danger', 'Votre enregistrement a été réalisé avec succès. Connectez-vous pour profiter de toutes les fonctionnalités de Simplex-Immo.');
+        $this->addFlash(
+            'danger',
+            'Votre enregistrement a été réalisé avec succès. Connectez-vous pour profiter de toutes les fonctionnalités de Simplex-Immo.'
+        );
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
