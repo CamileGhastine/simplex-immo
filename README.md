@@ -34,6 +34,7 @@ You can connect as registered user with connection information below :
 LINKS :
 Github : https://github.com/CamileGhastine/simplex-immo
 
+Before test the code run the commande : `Composer prepareDB-test`
 Test-coverage : https://localhost/test-coverage/
 
 Code Climat :
