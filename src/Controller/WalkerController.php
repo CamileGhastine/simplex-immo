@@ -22,7 +22,7 @@ class WalkerController extends AbstractController
     public function homepage(PostRepository $postRepository): Response
     {
         $posts = $this->cache->get('homepage', function () use ($postRepository) {
-            return $postRepository->findAllPostsWithPoster(9, 0);
+            return $postRepository->findAllPostsWithPoster(null, 9, 0);
         });
 
         return $this->render('walker/homepage/homepage.html.twig', [
