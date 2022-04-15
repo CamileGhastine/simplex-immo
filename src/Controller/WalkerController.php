@@ -22,7 +22,7 @@ class WalkerController extends AbstractController
     public function homepage(PostRepository $postRepository): Response
     {
         $posts = $this->cache->get('homepage', function () use ($postRepository) {
-            return $postRepository->findAllPostsWithPoster(9, 0);
+            return $postRepository->findAllPostsWithPoster(null, 9, 0);
         });
 
         return $this->render('walker/homepage/homepage.html.twig', [
@@ -36,7 +36,7 @@ class WalkerController extends AbstractController
     #[Route('/faq', name: 'faq')]
     public function faq(FaqRepository $faqRepository): Response
     {
-        $faq = $this->cache->get('homepage', function () use ($faqRepository) {
+        $faq = $this->cache->get('faq', function () use ($faqRepository) {
             return $faqRepository->findAll();
         });
 
